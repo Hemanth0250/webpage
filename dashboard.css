@@ -78,18 +78,33 @@ nav {
 
 main {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     padding: 20px;
 }
 
 section {
     width: 45%;
 }
-
-.task-cards, .member-cards {
+.members{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding-bottom: 0.35cm;
+}
+.tasks{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding-bottom: 0.35cm;
+    padding-left: 0.5cm;
+    padding-right: 0.5cm;
+}
+.task-cards{    
     display: flex;
     justify-content: space-around;
+    gap: 10px;
 }
+.member-cards{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+} 
 
 .task-card, .member-card {
     background: white;
@@ -97,9 +112,12 @@ section {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     text-align: center;
-    width: 30%;
+    width: 30%;;
 }
-
+#img1{
+    height: 40px;
+    width: 40px;
+}
 .task-icon, .member-icon {
     font-size: 36px;
     color: #b8860b;
@@ -111,5 +129,5 @@ section {
 }
 
 .task-label, .member-label {
-    font-size: 16px;
+    font-size: 16px;
 }
