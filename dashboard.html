@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+        }
+        header {
+            background-color: #f5a623;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+        .logo-circle {
+            background-color: white;
+            color: #f5a623;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        .logo-text {
+            font-size: 24px;
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+        .profile-icon, .notification-icon {
+            font-size: 24px;
+            margin-left: 15px;
+        }
+        nav {
+            background-color: #f5a623;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+        }
+        .current-events {
+            background-color: white;
+            color: #f5a623;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .current-events:hover {
+            background-color: #e59400;
+            color: white;
+        }
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px;
+        }
+        .search-bar select, .search-bar button {
+            margin: 0 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        main {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px;
+        }
+        section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 45%;
+        }
+        h2 {
+            margin-top: 0;
+            color: #f5a623;
+        }
+        .task-cards, .member-cards {
+            display: flex;
+            justify-content: space-around;
+        }
+        .task-card, .member-card {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            width: 30%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .task-icon, .member-icon {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+        .task-count, .member-count {
+            font-size: 24px;
+            color: #f5a623;
+            margin-bottom: 5px;
+        }
+        .task-label, .member-label {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <div class="logo-circle">V</div>
+            <div class="logo-text">Vakkaliga</div>
+        </div>
+        <div class="header-right">
+            <div class="profile-icon">&#x1F464;</div>
+            <div class="notification-icon">&#x1F514;</div>
+        </div>
+    </header>
+    <nav>
+        <button class="current-events" onclick="openCurrentEvents()">Current Events</button>
+    </nav>
+    <div class="search-bar">
+        <label for="country">Search by</label>
+        <select id="country">
+            <option>Select Country</option>
+        </select>
+        <select id="state">
+            <option>Select State</option>
+        </select>
+        <select id="district">
+            <option>Select District</option>
+        </select>
+        <select id="taluk">
+            <option>Select Taluk</option>
+        </select>
+        <button>SEARCH</button>
+        <button>RESET</button>
+    </div>
+    <main>
+        <section class="tasks">
+            <h2>My Task</h2>
+            <div class="task-cards">
+                <div class="task-card">
+                    <div class="task-icon">&#x1F465;</div>
+                    <div class="task-count">-</div>
+                    <div class="task-label">Total Approved #</div>
+                </div>
+                <div class="task-card">
+                    <div class="task-icon">&#x2795;</div>
+                    <div class="task-count">-</div>
+                    <div class="task-label">Total Pending #</div>
+                </div>
+                <div class="task-card">
+                    <div class="task-icon">&#x274C;</div>
+                    <div class="task-count">-</div>
+                    <div class="task-label">Total Rejection #</div>
+                </div>
+            </div>
+        </section>
+        <section class="members">
+            <h2>Total Members</h2>
+            <div class="member-cards">
+                <div class="member-card">
+                    <div class="member-icon">&#x1F465;</div>
+                    <div class="member-count">-</div>
+                    <div class="member-label">Total Volunteers #</div>
+                </div>
+                <div class="member-card">
+                    <div class="member-icon">&#x1F46E;</div>
+                    <div class="member-count">58</div>
+                    <div class="member-label">Total Admins #</div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        function openCurrentEvents() {
+            window.location.href = 'currentevents.html';
+        }
+    </script>
+</body>
+</html>
