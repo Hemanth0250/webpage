@@ -15,12 +15,16 @@ header {
     display: flex;
     align-items: center;
 }
+#img1{
+    height: 40px;
+    width: 40px;
+}
 .logo-circle {
     background-color: white;
     color: #f5a623;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
