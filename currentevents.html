@@ -4,107 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-        }
-        .header {
-            background-color: #f5a623;
-            color: white;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-        }
-        .header img {
-            width: 50px;
-            height: 50px;
-            margin-right: 10px;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-        .header .profile {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-        }
-        .header .profile img {
-            width: 30px;
-            height: 30px;
-            margin-left: 10px;
-        }
-        .content {
-            padding: 20px;
-        }
-        .back-link {
-            display: inline-block;
-            margin-bottom: 10px;
-            color: #f5a623;
-            cursor: pointer;
-        }
-        .controls {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .controls input {
-            margin-left: 10px;
-            padding: 5px;
-            width: 60px;
-        }
-        .create-button {
-            margin-left: auto;
-            background-color: #f5a623;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-        .create-button:hover {
-            background-color: #e59400;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        table, th, td {
-            border: 1px solid #ccc;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #f5a623;
-            color: white;
-        }
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 10px;
-        }
-        .pagination button {
-            background-color: #f5a623;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            padding: 5px 10px;
-            cursor: pointer;
-            margin: 0 5px;
-        }
-        .pagination button:hover {
-            background-color: #e59400;
-        }
-        .pagination span {
-            margin: 0 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="currentevents.css">
 </head>
 <body>
     <div class="header">
@@ -116,11 +16,11 @@
         </div>
     </div>
     <div class="content">
-        <div class="back-link">←BACK</div>
+        <div class="back-link"><a href="dashboard.html">←BACK</a></div>
         <div class="controls">
             <label for="items-per-page">Items per page:</label>
             <input type="number" id="items-per-page" value="5" min="1">
-            <button class="create-button" type="submit" onclick="createEvent()">CREATE EVENTS</button>
+            <button class="create-button" type="button" id="createevent" onclick="createEvent()">CREATE EVENTS</button>
         </div>
         <table>
             <thead>
@@ -145,33 +45,74 @@
         </div>
     </div>
     <script>
-        function createEvent() {
+        document.getElementById("createevent").onclick = function () {
             window.location.href = 'eventform.html';
         }
-
+        let currentPage = 1;
         function updateTable() {
-            const itemsPerPage = parseInt(document.getElementById('items-per-page').value);
-            const tableBody = document.getElementById('event-table-body');
-            tableBody.innerHTML = ''; // Clear existing rows
-            for (let i = 0; i < itemsPerPage; i++) {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${i + 1}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><button>Edit</button></td>
-                    <td><button>Delete</button></td>
-                `;
-                tableBody.appendChild(row);
-            }
-            document.getElementById('page-info').textContent = `Page 1 of ${Math.ceil(50 / itemsPerPage)}`; // Assume total items is 50 for example
+    const itemsPerPage = parseInt(document.getElementById('items-per-page').value);
+    const tableBody = document.getElementById('event-table-body');
+    const events = JSON.parse(localStorage.getItem('events')) || [];
+    const totalPages = Math.ceil(events.length / itemsPerPage);
+
+     // Initialize currentPage here or remove the previous declaration
+
+    // Clear existing rows
+    tableBody.innerHTML = '';
+
+    // Calculate the starting and ending index of the items for the current page
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+
+    // Loop through the events and create table rows for the current page
+    for (let i = start; i < end && i < events.length; i++) {
+        const event = events[i];
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${i + 1}</td>
+            <td>${event.title}</td>
+            <td><img src="${event.image}" alt="${event.title}" style="width: 50px; height: auto;"></td>
+            <td>${event.description}</td>
+            <td>${event.date}</td>
+            <td><button>Edit</button></td>
+            <td><button onclick="deleteEvent(${i})">Delete</button></td>
+        `;
+        tableBody.appendChild(row);
+    }
+    document.getElementById('page-info').textContent = `Page ${currentPage} of ${totalPages}`;
+}
+
+
+        function deleteEvent(index) {
+            const events = JSON.parse(localStorage.getItem('events')) || [];
+            events.splice(index, 1); // Remove the event at the given index
+            localStorage.setItem('events', JSON.stringify(events)); // Update local storage
+            updateTable(); // Refresh the table
         }
 
         document.getElementById('items-per-page').addEventListener('input', updateTable);
 
         updateTable(); // Initial load
+        
+
+document.getElementById('prev-button').addEventListener('click', function() {
+    if (currentPage > 1) {
+        currentPage--;
+        updateTable();
+    }
+});
+
+document.getElementById('next-button').addEventListener('click', function() {
+    const itemsPerPage = parseInt(document.getElementById('items-per-page').value);
+    const events = JSON.parse(localStorage.getItem('events')) || [];
+    const totalPages = Math.ceil(events.length / itemsPerPage);
+
+    if (currentPage < totalPages) {
+        currentPage++;
+        updateTable();
+    }
+});
+
     </script>
 </body>
 </html>
