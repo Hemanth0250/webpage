@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('selectedMember', JSON.stringify(selectedMember));
             window.location.href = 'memberdetails.html';
         });
-    }
+    }     
 
     itemsPerPageInput.addEventListener('input', () => {
         currentPage = 1;
